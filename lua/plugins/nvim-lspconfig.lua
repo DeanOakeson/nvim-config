@@ -50,3 +50,9 @@ vim.lsp.config("pylsp", {
 -- vim.lsp.config("ruff")
 vim.lsp.enable("basedpyright")
 vim.lsp.enable("bashls")
+vim.lsp.enable("shader-language-server")
+vim.lsp.config("shader-language-server", {
+  cmd = { "shader-language-server", "--stdio", "--glsl" }, -- add --hlsl / --wgsl if needed
+  filetypes = { "glsl" },                                   -- add "hlsl", "wgsl" if needed
+})
+

@@ -1,4 +1,5 @@
-vim.pack.add({ "https://github.com/Saghen/blink.cmp" })
+vim.pack.add({ "https://github.com/Saghen/blink.cmp",
+                "https://github.com/Saghen/blink.lib" })
 vim.pack.add({ "https://github.com/mikavilpas/blink-ripgrep.nvim" })
 require('blink.cmp').setup({
   -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)

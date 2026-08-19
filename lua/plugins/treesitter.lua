@@ -7,7 +7,7 @@ vim.pack.add({
         ensure_installed = {
           "vim", "bash", "lua", "python", "rust",
           "json", "c", "cpp", "markdown", "java",
-          "html", "haskell", "sql", "ansible", "yaml"
+          "html", "haskell", "sql", "ansible", "yaml", "glsl"
         },
         highlight = { enable = true },
         incremental_selection = {
