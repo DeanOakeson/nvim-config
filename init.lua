@@ -12,5 +12,4 @@ require 'plugins/toggleterm'
 require 'plugins/treesitter-context'
 require 'plugins/treesitter'
 require 'plugins/modus-themes'
-vim.cmd("colorscheme darkblue")
 
