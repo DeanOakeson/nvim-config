@@ -13,10 +13,12 @@ vim.opt.scrolloff = 3
 vim.opt.undofile = true;
 vim.opt.iskeyword:append("-")
 vim.opt.path:append("**")
-vim.o.winborder = 'single'
+vim.o.winborder = 'double'
 vim.o.swapfile = false;
 vim.cmd(":hi StatusLine guibg=NONE")
 vim.opt.laststatus = 3
+vim.opt.statusline = "%F %m %r %= %y %p%% Line:%l/%L"
+vim.opt.title = true
 
 local augroup = vim.api.nvim_create_augroup("UserConfig", {})
 
