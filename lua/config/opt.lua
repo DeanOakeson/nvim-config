@@ -21,7 +21,17 @@ vim.opt.statusline = "%F %m %r %= %y %p%% Line:%l/%L"
 vim.opt.title = true
 vim.cmd("colorscheme darkblue")
 
-local augroup = vim.api.nvim_create_augroup("UserConfig", {})
+
+-- id: (number) autocommand id
+-- event: (string) name of the triggered even| autocmd-events
+-- group: (number|nil) autocommand group id, if any
+-- match: (string) expanded value of |<amatch>|
+-- buf: (number) expanded value of |<abuf>|
+-- file: (string) expanded value of |<afile>|
+-- data: (any) arbitrary data passed |nvim_exec_autocmds()|
+
+local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
+local javascript = vim.api.nvim_create_augroup("JavaScript", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight text on yank.",
@@ -46,6 +56,16 @@ vim.api.nvim_create_autocmd("VimResized", {
   group = augroup,
   callback = function()
     vim.cmd("tabdo wincmd =")
+  end
+})
+
+vim.api.nvim_create_autocmd("BufWriteCmd" , "FileType" {
+  desc = "Run npx prettier.",
+  group = javascript,
+  pattern = {"*.js", "*.ts"}
+  callback = function(ev)
+    local cmd = string.format("npx prettier --write %s", ev.file)
+    vim.fnd.system(cmd)
   end
 })
 
