@@ -31,7 +31,7 @@ vim.cmd("colorscheme darkblue")
 -- data: (any) arbitrary data passed |nvim_exec_autocmds()|
 
 local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
-local javascript = vim.api.nvim_create_augroup("JavaScript", { clear = true })
+local formating = vim.api.nvim_create_augroup("Linting", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight text on yank.",
@@ -59,14 +59,14 @@ vim.api.nvim_create_autocmd("VimResized", {
   end
 })
 
-vim.api.nvim_create_autocmd("BufWriteCmd" , "FileType" {
+--Potentially figure out a way to make it automatically reload the buffer when changed.
+vim.api.nvim_create_autocmd({'BufWritePre' , 'FileType'}, {
   desc = "Run npx prettier.",
-  group = javascript,
-  pattern = {"*.js", "*.ts"}
-  callback = function(ev)
-    local cmd = string.format("npx prettier --write %s", ev.file)
-    vim.fnd.system(cmd)
-  end
+  group = formatting,
+  pattern = {"*.js", "*.ts"},
+  callback = function()
+    vim.cmd(':!npx prettier --write %')
+  end,
 })
 
 local excluded_formatting_filetypes = { "*html" }
