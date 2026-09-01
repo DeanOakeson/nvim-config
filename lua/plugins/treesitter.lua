@@ -1,23 +1,19 @@
-vim.pack.add({
-  {
-    src = "https://github.com/nvim-treesitter/nvim-treesitter",
-    after = function()
-      require('nvim-treesitter.configs').setup({
-        auto_install = false,
-        ensure_installed = {
-          "vim", "bash", "lua", "python", "rust",
-          "json", "c", "cpp", "markdown", "java",
-          "html", "haskell", "sql", "ansible", "yaml", "glsl"
-        },
-        highlight = { enable = true },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            node_incremental = "v",
-            node_decremental = "V",
-          }
-        }
-      })
-    end
-  }
+vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter" })
+
+-- Replaces ensure_installed — install explicitly (async by default)
+require('nvim-treesitter').install({
+    "nix", "vim", "bash", "lua", "python", "rust",
+    "json", "c", "cpp", "markdown", "java", "html", "javascript", "typescript",
+})
+
+-- Replaces highlight.enable = true
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = {
+        "nix", "vim", "bash", "lua", "python", "rust",
+        "json", "c", "cpp", "markdown", "java", "html", "javascript", "typescript",
+
+    },
+    callback = function()
+        vim.treesitter.start()
+    end,
 })
