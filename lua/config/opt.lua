@@ -21,7 +21,17 @@ vim.opt.statusline = "%F %m %r %= %y %p%% Line:%l/%L"
 vim.opt.title = true
 vim.cmd("colorscheme darkblue")
 
-local augroup = vim.api.nvim_create_augroup("UserConfig", {})
+
+-- id: (number) autocommand id
+-- event: (string) name of the triggered even| autocmd-events
+-- group: (number|nil) autocommand group id, if any
+-- match: (string) expanded value of |<amatch>|
+-- buf: (number) expanded value of |<abuf>|
+-- file: (string) expanded value of |<afile>|
+-- data: (any) arbitrary data passed |nvim_exec_autocmds()|
+
+local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
+local formating = vim.api.nvim_create_augroup("Linting", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight text on yank.",
@@ -47,6 +57,19 @@ vim.api.nvim_create_autocmd("VimResized", {
   callback = function()
     vim.cmd("tabdo wincmd =")
   end
+})
+
+-- Runs prettier on write
+vim.api.nvim_create_autocmd('BufWritePost' , {
+  desc = "Run npx prettier.",
+  group = formatting,
+  pattern = {"*.js", "*.ts"},
+  callback = function()
+    vim.cmd("silent! set eventignore=FileChangedShellPost")
+    vim.cmd(':silent !npx prettier --write '.. vim.fn.expand("<afile>"))
+    vim.cmd("checktime")
+    vim.cmd("silent! set eventignore=")
+  end,
 })
 
 local excluded_formatting_filetypes = { "*html" }
