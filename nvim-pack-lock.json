@@ -42,7 +42,8 @@
     },
     "nvim-surround": {
       "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
-      "src": "https://github.com/kylechui/nvim-surround"
+      "src": "https://github.com/kylechui/nvim-surround",
+      "version": "4.0.0 - 5.0.0"
     },
     "nvim-treesitter": {
       "rev": "d3218d988f72ed34414959c9ccd802d393432d6e",

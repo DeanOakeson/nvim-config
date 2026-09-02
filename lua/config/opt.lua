@@ -59,13 +59,16 @@ vim.api.nvim_create_autocmd("VimResized", {
   end
 })
 
---Potentially figure out a way to make it automatically reload the buffer when changed.
-vim.api.nvim_create_autocmd({'BufWritePre' , 'FileType'}, {
+-- Runs prettier on write
+vim.api.nvim_create_autocmd('BufWritePost' , {
   desc = "Run npx prettier.",
   group = formatting,
   pattern = {"*.js", "*.ts"},
   callback = function()
-    vim.cmd(':!npx prettier --write %')
+    vim.cmd("silent! set eventignore=FileChangedShellPost")
+    vim.cmd(':silent !npx prettier --write '.. vim.fn.expand("<afile>"))
+    vim.cmd("checktime")
+    vim.cmd("silent! set eventignore=")
   end,
 })
 
